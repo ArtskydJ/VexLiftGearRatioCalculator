@@ -19,10 +19,8 @@ default_weight:=2
 default_motors:=2
 default_speed:=60
 default_torque:=65
-
-///CALCULATIONS
-///In the future, use array for this?
-
+endRatio:=1
+endTime:=1
 
 /// GUI
 ///Gui, Menu, MyMenuBar
@@ -75,6 +73,8 @@ Gui, Add, Text,,`% (In. Lbs.)
 Gui, Tab
 
 Gui, Add, Button,xm, Calculate
+Gui, Add, Text,,1:%endRatio% Ratio
+Gui, Add, Text,,%endTime% Seconds
 
 Gui, Show, AutoSize Center
 return
@@ -90,7 +90,8 @@ ButtonCalculate:
 	ratio := ratio*100/(100-((GearsChain-1)*8))							///LOSS IN GEARS AND CHAIN
 	ratio := ratio*(100-((RubberBands-1)*25))/100						///GAIN IN RUBBER BANDS
 	time := Angle * ratio / (mtr_out_speed * 360 / 60)					///Calculate Time
-	MsgBox Ratio 1:%Ratio%`n%time% Seconds
+	endRatio := ratio
+	endTime := time
 	Return
 	}
 
